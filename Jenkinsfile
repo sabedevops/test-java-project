@@ -1,6 +1,8 @@
 pipeline {
 	// Execute pipeline on any agent
-    agent any 
+    agent {
+		label 'master'
+	} 
 	
 	options{
 		// Keep 2 builds, keep 1 artifact
@@ -22,8 +24,13 @@ pipeline {
 			 // Execute shell build reading 'build.xml' from current directory
              sh 'ant -f build.xml -v'
             }
+		}
+		stage ('deploy') {
+			steps{
+			    sh 'cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/'
+			}
+		}		
 			
-        }
     }
 	// 1 or more additional steps that are run upon the completion of the Pipeline.	
 	post {
