@@ -32,6 +32,14 @@ pipeline {
 			 // Execute shell build reading 'build.xml' from current directory
              sh 'ant -f build.xml -v'
             }
+			// 1 or more additional steps that are run upon the completion of the Pipeline.	
+			post {
+				// Run on success of all steps in 'build' stage 
+				success {
+					// Creates a fingerprinted artifact from objects in path 
+					archiveArtifacts artifacts: 'dist/*.jar', fingerprint: true
+				}
+			}
 		}
 		stage ('deploy') {
 			agent {	
@@ -52,12 +60,5 @@ pipeline {
 		}		
 			
     }
-	// 1 or more additional steps that are run upon the completion of the Pipeline.	
-	post {
-		// Run regardless of the completion status of the Pipeline or Stage runs
-		always {
-			// Creates a fingerprinted artifact from objects in path 
-			archiveArtifacts artifacts: 'dist/*.jar', fingerprint: true
-		}
-	}
+	
 }
