@@ -8,12 +8,21 @@ pipeline {
 	}
 	// Container for a sequence of 1 or more stages
     stages {
+		// Unit testing stage
+		stage ('Unit Tests') {
+			steps {
+				sh 'ant -f test.xml -v'
+				junit 'reports/result.xml'
+			}
+		}
+	
 		// Stage named "build"	
         stage ('build') {
             steps {
 			 // Execute shell build reading 'build.xml' from current directory
              sh 'ant -f build.xml -v'
             }
+			
         }
     }
 	// 1 or more additional steps that are run upon the completion of the Pipeline.	
