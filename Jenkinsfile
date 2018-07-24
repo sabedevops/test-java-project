@@ -2,7 +2,10 @@ pipeline {
 	// Execute pipeline on any agent
     agent {
 		label 'master'
-	} 
+    }
+    environment {
+	MAJOR_VERSION = 1
+    }
 	
 	options{
 		// Keep 2 builds, keep 1 artifact
