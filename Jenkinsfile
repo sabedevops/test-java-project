@@ -115,6 +115,7 @@ pipeline {
             	}
         	}
 		}
+		}
 		post {
 			failure {
 				emailext(
@@ -127,5 +128,4 @@ pipeline {
 			}
 		}		
 			
-    }
 }
