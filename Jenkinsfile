@@ -104,7 +104,7 @@ pipeline {
 
 			}
 			post {
-            	failure {
+            	success {
                		emailext(
                     	subject: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Development Promoted to Master",
                     	body: """<p>'${env.JOB_NAME} [${env.BUILD_NUMBER}]' Failed!":</p>
